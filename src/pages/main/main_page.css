@@ -7,50 +7,9 @@
     margin-bottom: 62px;
 }
 
-.list_wrapper {
-    
-    margin-right: 30px;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-
-    
-    letter-spacing: 0.1px;
-    
-    /* main/dark */
-    
-    color: #363636;
-    
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    margin-right: 30px;
-}
-
-.tag_list {
 
 
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 28px;
-    
-    background: linear-gradient(231.58deg, #F83600 -53.35%, #F9D423 297.76%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    
-    
-    
-    /* Inside auto layout */
-    
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    }
+
     
     .tag_list::after {
         content: '';
@@ -71,7 +30,7 @@ font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 24px;
-
+cursor: pointer;
 letter-spacing: 0.1px;
 
 color: #363636;
@@ -80,11 +39,9 @@ color: #363636;
     margin-bottom: 16px;
 }
 
-.list_title:last-child {
-    margin-bottom: 42px;
-}
 
-.all_books {
+
+.active {
 
     width: 231px;
     height: 28px;
@@ -167,6 +124,8 @@ letter-spacing: 0.1px;
 
 color: #A7A7A7;
 
+margin-left: 5px;
+
 
 }
 
@@ -220,6 +179,10 @@ color: #A7A7A7;
     padding: 0 15px;
     position: relative;
 
+}
+
+.search_by_rate:active {
+   border: 1px solid #F83600;
 }
 
 .img_rate_block {
