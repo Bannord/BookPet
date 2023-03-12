@@ -5,6 +5,8 @@ import Sort from '../../components/Sort/Sort';
 import axios from 'axios';
 import './main_page.css';
 import Myselect from '../../components/UI/select/myselect';
+import Input from '../../components/UI/input/input';
+
 
 
 // async function fetchPosts() {
@@ -24,6 +26,9 @@ function MainPage() {
     React.useEffect(() => {
         fetch('http://localhost:8080/api/v1/catalog').then((resp) => resp.json()).then(json => {
             setBooks(json.books.content)
+            console.log(books)
+
+        
         });
         }, [])
 
@@ -32,6 +37,27 @@ function MainPage() {
         const onChangeInput = (event) => {
             setSearchValue(event.target.value);
           };
+
+          const [selectedSort, setSelectedSort] = React.useState('')
+
+          const sortedBooks = React.useMemo(() => {
+            console.log('ОТРАБОТАЛА ФУНКЦИЯ СОРДЕТ ПОСТ')
+            if(selectedSort) {
+                return [...books].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
+            }
+                return books;
+          }, [selectedSort, books])
+
+          const sortedAndSearchBooks = React.useMemo(() => {
+            return sortedBooks.filter(books => books.name.toLowerCase().includes(searchValue))
+
+          }, [searchValue, sortedBooks])
+
+          const sortBooks = (sort) => {
+            setSelectedSort(sort);
+            
+
+          }
 
    
 
@@ -47,18 +73,18 @@ function MainPage() {
        </div>
         <div className="content_block_wrapper">
             <div className="search_block_wrapper">
-                {/* <div className="search_content_buttons">   пиксель перфект(большая вложенность) */} 
-                <div className="search_block">
-                    <img className='img_search_block' src="./img/search.svg" alt="Search" />
-                    
-                    <input onChange={onChangeInput} placeholder="Поиск книги или автора…" />
-                </div>
+                {/* <div className="search_content_buttons">   пиксель перфект(большая вложенность)  */}
+                <Input 
+                    onChangeInput={onChangeInput}
+                />
                 <div className="search_by_rate">
                        <Myselect 
+                        value={selectedSort}
+                        onChange={sortBooks}
                         defaultValue='Сортировка'
                         options={[
-                            {value: 'title', name: 'По названию'},
-                            {value: 'quantity', name: 'По описанию'}
+                            {value: 'name', name: 'По названию книги'},
+                            {value: 'author', name: 'По автору'}
                         ]}
                        />
                    
@@ -75,10 +101,12 @@ function MainPage() {
                 {/* </div>  */}
             </div>
                 <div className="content_wrapper">
+                
                     {/* <Link to = "/cardBook" > */}
                     {
-                        books.map(obj => <Card key={obj.bookID} name={obj.name} 
-                          author={obj.author}  />)
+                        sortedAndSearchBooks.map(obj => <Card key={obj.bookID} name={obj.name} 
+                          author={obj.author}
+                          img={obj.image}  />)
                     }
                     {/* </Link> */}
                     <div className="card_item">
@@ -92,181 +120,6 @@ function MainPage() {
                             <div className="rating_item">★</div>
                             <div className="rating_item">★</div>
                         </div>
-                        <div className="text_card">
-                            Грокаем алгоритмы.
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        </div>
-                        <button type='submit' className="button_card_reserve">Занята до 03.05</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block' src="./img/book.png" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                        </div>
-                        <div className="text_card">
-                        Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        </div>
-                        
-                        <button type='submit' className="button_card">Забронировать</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block' src="./img/book.png" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                        </div>
-                        <div className="text_card">
-                        Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        
-                        </div>
-                        <button type='submit' className="button_card">Забронировать</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block' src="./img/book.png" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item ">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank"><span>★</span></div>
-                        </div>
-                        <div className="text_card">
-                            Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        Патрик Нимейер
-                        </div>
-                        <button type='submit' className="button_card_blocked">Забронирована</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block_blank' src="./img/cat.svg" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                        </div>
-                        <div className="text_card">
-                            Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        </div>
-                        <button type='submit' className="button_card">Забронировать</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block' src="./img/book.png" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            <div className="rating_item">★</div>
-                            <div className="rating_item">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                        </div>
-                        <div className="text_card">
-                            Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        Патрик Нимейер
-                        </div>
-                        <button type='submit' className="button_card_blocked">Забронирована</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block' src="./img/book.png" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            <div className="rating_item">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                        </div>
-                        <div className="text_card">
-                            Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        Патрик Нимейер
-                        </div>
-                        <button type='submit' className="button_card_reserve">Занята до 23.04</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block' src="./img/book.png" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            <div className="rating_item">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                            <div className="rating_item_blank">★</div>
-                        </div>
-                        <div className="text_card">
-                            Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        </div>
-                        <button type='submit' className="button_card">Забронировать</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block_blank' src="./img/cat.svg" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            ещё нет оценок
-                        </div>
-                        <div className="text_card">
-                            Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        </div>
-                        <button type='submit' className="button_card">Забронировать</button>
-                    </div>
-                    <div className="card_item">
-                        <div className="card_img">
-                        <img className='img_content_block' src="./img/book.png" alt="book" />
-                        </div>
-                        <div className="card_rank">
-                            ещё нет оценок
-                        </div>
-                        <div className="text_card">
-                            Грокаем алгоритмы. Иллюстрированное пособие для програ...
-                        </div>
-                        <div className="author_card">
-                        Адитья Бхаргава, 2019
-                        </div>
-                        <button type='submit' className="button_card">Забронировать</button>
                     </div>
                 </div>
             

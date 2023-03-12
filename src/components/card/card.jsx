@@ -1,13 +1,15 @@
 import React from "react";
 import './card.css'
 
-function Card({name,  author, authorName}) {
+function Card({name,  author, img, authorName}) {
 
 
     return (
         <div className="card_item">
         <div className="card_img">
-        <img className='img_content_block' src="./img/book.png" alt="book" />
+        
+        {img?.path ?  <img className='img_content_block' src={img?.path} alt={img.filename} /> : <img className='img_content_block_blank' src="./img/cat.svg" alt="book" />}
+  
         </div>
         <div className="card_rank">
             <div className="rating_item">★</div>
