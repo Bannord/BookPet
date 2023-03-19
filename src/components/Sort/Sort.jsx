@@ -9,8 +9,8 @@ function Sort () {
     const [category, setCategory] = React.useState([])
 
     async function fetchListsPosts() {
-         const response = await axios.get('http://localhost:8080/api/v1/catalog')
-        
+         const response = await axios.get('http://localhost:8080/api/v1/catalog/books/category')
+        console.log(response.data)
          setCategory(response.data)
         
          
@@ -36,7 +36,7 @@ function Sort () {
     {open && ( 
         
            <>
-            {category?.category?.map((el, i) => 
+            {category?.map((el, i) => 
             <ul key={i} className='lists_wrapper'>
                 <li onClick={() => onClickCategory(el.categoryID)} 
                     className={activeIndex ===  el.categoryID? 'list_title active' : 'list_title'}>{el.name} 

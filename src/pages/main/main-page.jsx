@@ -24,8 +24,8 @@ function MainPage() {
     const [books, setBooks] = React.useState([])
 
     React.useEffect(() => {
-        fetch('http://localhost:8080/api/v1/catalog').then((resp) => resp.json()).then(json => {
-            setBooks(json.books.content)
+        fetch('http://localhost:8080/api/v1/catalog/books').then((resp) => resp.json()).then(json => {
+            setBooks(json.content)
             console.log(books)
 
         

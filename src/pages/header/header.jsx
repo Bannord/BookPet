@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import './header.css';
 
 export const Header = () => (
@@ -22,5 +23,7 @@ export const Header = () => (
                 <img className='user_avatar' src="/img/avatar.png" alt="avatar" />
             </div>
         </div>
+        <div> <NavLink to='registration'>Регистрация</NavLink></div>
+        <div>войти</div>
     </section>
 );
