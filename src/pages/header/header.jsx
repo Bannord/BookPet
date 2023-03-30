@@ -1,7 +1,19 @@
+
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import './header.css';
+import { logout } from '../../reducers/userReducer';
 
-export const Header = () => (
+
+
+export const Header = () => {
+
+    const isAuth = useSelector(state => state.user.isAuth)
+
+    const dispatch = useDispatch()
+
+    return (
+    
     <section className="header_row">
         <div className="tag_title_row">
             <div className="icon_title_img">
@@ -23,7 +35,9 @@ export const Header = () => (
                 <img className='user_avatar' src="/img/avatar.png" alt="avatar" />
             </div>
         </div>
-        <div> <NavLink to='registration'>Регистрация</NavLink></div>
-        <div>войти</div>
+        {!isAuth && <div> <NavLink to='registration'>Регистрация</NavLink></div>}
+        {!isAuth && <div><NavLink to='authorization'>Войти</NavLink></div>}
+        {isAuth && <div onClick={() => dispatch(logout())}>Выход</div>}
     </section>
-);
+    )
+}

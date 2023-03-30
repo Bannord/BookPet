@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import Card from '../../components/card/card';
 import Sort from '../../components/Sort/Sort';
-import axios from 'axios';
+
 import './main_page.css';
 import Myselect from '../../components/UI/select/myselect';
 import Input from '../../components/UI/input/input';
@@ -21,16 +21,24 @@ import Input from '../../components/UI/input/input';
 
 function MainPage() {
 
+
+    
+    
+   
     const [books, setBooks] = React.useState([])
 
     React.useEffect(() => {
-        fetch('http://localhost:8080/api/v1/catalog/books').then((resp) => resp.json()).then(json => {
+        fetch('http://localhost:8080/api/v1/catalog/books', {
+            headers: {
+                Authorization: `Bearer ${'token'}`
+            }
+        }).then((resp) => resp.json()).then(json => {
+            
             setBooks(json.content)
             console.log(books)
-
         
         });
-        }, [])
+        }, [books])
 
         const [searchValue, setSearchValue] = React.useState("");
 
@@ -125,6 +133,7 @@ function MainPage() {
             
         </div>
     </div>
+    
     )
     };
 export default MainPage
