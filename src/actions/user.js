@@ -15,6 +15,7 @@ export const registration = async (email, password, firstname, lastname ) => {
               'Content-Type': 'application/json'
             }
     })
+    localStorage.setItem('token', response.data.token)
     alert(response.data.message)
     
     } catch (error) {
@@ -23,20 +24,25 @@ export const registration = async (email, password, firstname, lastname ) => {
     
 }
 
-
 export const auth =  (email, password, ) => {
   return async dispatch => {
         try {
             const response = await axios.post('http://localhost:8080/api/v1/auth/authenticate',{ 
-          
             email,
-            password,
+            password
+          }, 
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
           
-              })
-              dispatch(setUser(response.data))
-              localStorage.setItem('token', response.data.token)
-            
-            }   
+          
+          dispatch(setUser(response.data.token))
+          localStorage.setItem('token', response.data.token) 
+          
+          
+        }   
         catch (error) {
             alert(error.response.data.message)
         }

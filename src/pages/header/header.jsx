@@ -17,7 +17,8 @@ export const Header = () => {
     <section className="header_row">
         <div className="tag_title_row">
             <div className="icon_title_img">
-                <img className='logo_icon' src="/img/main_logo.png" alt="Logo" />
+                <NavLink to ='/' >
+                <img className='logo_icon' src="/img/main_logo.png" alt="Logo" /></NavLink>
             </div>
             <div className="title_name">
                 CleverLand

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Card from '../../components/card/card';
 import Sort from '../../components/Sort/Sort';
@@ -6,40 +6,30 @@ import Sort from '../../components/Sort/Sort';
 import './main_page.css';
 import Myselect from '../../components/UI/select/myselect';
 import Input from '../../components/UI/input/input';
-
-
-
-// async function fetchPosts() {
-//     const response = await axios.get('http://localhost:8080/api/v1/catalog')
-   
-//     console.log(response.data.books.content)
-   
-// }
-// fetchPosts()
+import { auth } from '../../actions/user';
+import { useDispatch, useSelector } from "react-redux";
+import { getBooks } from '../../actions/books';
+import { getCategoryes } from '../../actions/books';
 
 
 
 function MainPage() {
 
-
-    
-    
+    const dispatch = useDispatch()
    
     const [books, setBooks] = React.useState([])
 
     React.useEffect(() => {
-        fetch('http://localhost:8080/api/v1/catalog/books', {
-            headers: {
-                Authorization: `Bearer ${'token'}`
-            }
-        }).then((resp) => resp.json()).then(json => {
-            
-            setBooks(json.content)
-            console.log(books)
-        
-        });
-        }, [books])
+        dispatch(getBooks())
+    }, [dispatch])
 
+   
+
+
+
+    
+    const bookks = useSelector(state => state.files.books);
+    
         const [searchValue, setSearchValue] = React.useState("");
 
         const onChangeInput = (event) => {
@@ -112,7 +102,7 @@ function MainPage() {
                 
                     {/* <Link to = "/cardBook" > */}
                     {
-                        sortedAndSearchBooks.map(obj => <Card key={obj.bookID} name={obj.name} 
+                        bookks.map(obj => <Card key={obj.bookID} name={obj.name} 
                           author={obj.author}
                           img={obj.image}  />)
                     }
@@ -137,3 +127,26 @@ function MainPage() {
     )
     };
 export default MainPage
+/*
+    React.useEffect(() => {
+
+        fetch('http://localhost:8080/api/v1/catalog/books', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((resp) => resp.json())
+            .then(json => {
+                setBooks(json.content)
+                console.log(json.content)
+            });
+
+    },
+    
+    
+    я делал так, у меня работало 
+
+блять 
+
+
+    */

@@ -10,6 +10,7 @@ export default function userReducer (state = defaultState, action) {
     switch (action.type) {
             case SET_USER:
             return {
+             
                 ...state,
                 currentUser: action.payload.user,
                 isAuth: true

@@ -11,8 +11,12 @@ import { useSelector } from "react-redux";
 
 
 
+
 export const App = () => {
     const isAuth = useSelector(state => state.user.isAuth)
+    
+
+   
     return (
     
     
@@ -23,7 +27,8 @@ export const App = () => {
                 !isAuth && 
                 <>
                     <Route path="/registration" element={<Registration />}></Route>
-                    <Route path="/authorization" element={<Auth />}></Route> 
+                    <Route path="/authorization" element={<Auth />}></Route>
+                    <Route exact path='/' element={<MainPage />} />
                 </>
             }
         
