@@ -6,7 +6,7 @@ import Sort from '../../components/Sort/Sort';
 import './main_page.css';
 import Myselect from '../../components/UI/select/myselect';
 import Input from '../../components/UI/input/input';
-import { auth } from '../../actions/user';
+
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from '../../actions/books';
 
@@ -17,9 +17,9 @@ function MainPage() {
 
     const dispatch = useDispatch()
    
-    const [books, setBooks] = React.useState([])
+    
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(getBooks())
     }, [dispatch])
 
@@ -30,26 +30,14 @@ function MainPage() {
     
     const bookks = useSelector(state => state.files.books);
     
-        const [searchValue, setSearchValue] = React.useState("");
+        
 
-        const onChangeInput = (event) => {
-            setSearchValue(event.target.value);
-          };
+       
 
           const [selectedSort, setSelectedSort] = React.useState('')
 
-          const sortedBooks = React.useMemo(() => {
-            console.log('ОТРАБОТАЛА ФУНКЦИЯ СОРДЕТ ПОСТ')
-            if(selectedSort) {
-                return [...books].sort((a, b) => a[selectedSort].localeCompare(b[selectedSort]))
-            }
-                return books;
-          }, [selectedSort, books])
+          
 
-          const sortedAndSearchBooks = React.useMemo(() => {
-            return sortedBooks.filter(books => books.name.toLowerCase().includes(searchValue))
-
-          }, [searchValue, sortedBooks])
 
           const sortBooks = (sort) => {
             setSelectedSort(sort);
@@ -73,7 +61,7 @@ function MainPage() {
             <div className="search_block_wrapper">
                 {/* <div className="search_content_buttons">   пиксель перфект(большая вложенность)  */}
                 <Input 
-                    onChangeInput={onChangeInput}
+                  
                 />
                 <div className="search_by_rate">
                        <Myselect 

@@ -1,9 +1,11 @@
 import React from "react";
-import axios from "axios";
+
 import './sort.css'
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryes } from "../../actions/books";
-import { setCategory } from "../../reducers/fileReducer";
+import { getBooksByCategory } from "../../actions/books";
+
+
 
 function Sort () {
 
@@ -12,6 +14,10 @@ function Sort () {
     React.useEffect (() => {
         dispatch(getCategoryes())
     }, [dispatch])
+
+    const handleClickCategory = (categoryId) => {
+        dispatch(getBooksByCategory(categoryId))
+    }
 
     
 
@@ -25,7 +31,6 @@ function Sort () {
 
     // const [category, setCategory] = React.useState([])
 
- 
 
 
     
@@ -49,7 +54,11 @@ function Sort () {
            <>
             {categoryes?.map((el, i) => 
             <ul key={i} className='lists_wrapper'>
-                <li onClick={() => onClickCategory(el.categoryID)} 
+                <li onClick={() => {
+                        handleClickCategory(el.categoryID)
+                        onClickCategory(el.categoryID)
+                     }} 
+                             
                     className={activeIndex ===  el.categoryID? 'list_title active' : 'list_title'}>{el.name} 
                         <span className='num_books'>
                             {el.quantity}
