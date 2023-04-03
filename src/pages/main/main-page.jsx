@@ -9,7 +9,7 @@ import Input from '../../components/UI/input/input';
 import { auth } from '../../actions/user';
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from '../../actions/books';
-import { getCategoryes } from '../../actions/books';
+
 
 
 
@@ -102,7 +102,7 @@ function MainPage() {
                 
                     {/* <Link to = "/cardBook" > */}
                     {
-                        bookks.map(obj => <Card key={obj.bookID} name={obj.name} 
+                        bookks.map(obj => <Card  key={obj.bookID} name={obj.name} 
                           author={obj.author}
                           img={obj.image}  />)
                     }
@@ -127,26 +127,3 @@ function MainPage() {
     )
     };
 export default MainPage
-/*
-    React.useEffect(() => {
-
-        fetch('http://localhost:8080/api/v1/catalog/books', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-            .then((resp) => resp.json())
-            .then(json => {
-                setBooks(json.content)
-                console.log(json.content)
-            });
-
-    },
-    
-    
-    я делал так, у меня работало 
-
-блять 
-
-
-    */

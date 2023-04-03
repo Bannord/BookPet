@@ -30,6 +30,7 @@ export const getCategoryes =  () => {
             dispatch(setCategory(response.data))
             console.log(response.data)
             
+            
         } catch(e) {
          alert(e)
         }

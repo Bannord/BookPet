@@ -1,10 +1,12 @@
 import React from "react";
 import './card.css'
+import { Link } from "react-router-dom";
 
 function Card({name,  author, img, authorName}) {
 
 
     return (
+        <Link to = "/cardBook" > 
         <div className="card_item">
         <div className="card_img">
         
@@ -30,6 +32,7 @@ function Card({name,  author, img, authorName}) {
         </div>
         <button type='submit' className="button_card">Забронировать</button>
     </div>
+    </Link>
     )
 }
 export default Card;

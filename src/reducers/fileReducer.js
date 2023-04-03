@@ -4,8 +4,8 @@ const SET_BOOKS = 'SET_BOOKS'
 const SET_CATEGORY = 'SET_CATEGORY'
 const defaultState = {
     books: [],
-    currentDir: null
-
+    currentDir: null,
+    categoryes: []
 }
 
 export default function fileReducer (state = defaultState, action) {

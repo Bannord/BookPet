@@ -3,6 +3,7 @@ import axios from "axios";
 import './sort.css'
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryes } from "../../actions/books";
+import { setCategory } from "../../reducers/fileReducer";
 
 function Sort () {
 
@@ -10,18 +11,19 @@ function Sort () {
 
     React.useEffect (() => {
         dispatch(getCategoryes())
-    }, [])
+    }, [dispatch])
 
     
 
-    const categoryes = useSelector(state => state.category);
+    const categoryes = useSelector(state => state.files.categoryes);
+
 
     const handleClick = () => {
         dispatch(getCategoryes());
       }
     
 
-    const [category, setCategory] = React.useState([])
+    // const [category, setCategory] = React.useState([])
 
  
 
